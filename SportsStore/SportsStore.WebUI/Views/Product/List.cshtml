@@ -1,0 +1,21 @@
+﻿
+@model SportsStore.WebUI.Models.ProductListViewModel
+
+
+@{
+    ViewBag.Title = "Продожа различного асортимента спортивных товаров";
+}
+<h2>Католог товаров</h2>
+
+@foreach(var item in Model.Products)
+{
+    @Html.Partial("ProductSummary",item)
+
+}
+
+<div class="btn-group pull-right">
+    @Html.PageLings(Model.PageInfo,x=>Url.Action("List",new {page=x,category=Model.CurrentCategory }))
+</div>
+
+
+

@@ -1,0 +1,72 @@
+﻿@model SportsStore.Domain.Entities.ShippingDetails
+
+@{ 
+    ViewBag.Title = "Оформление заказа";
+
+}
+
+<h2>Форма оформления</h2>
+<p>Пожалуйста, введите ваши данные для оформления покупки</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <h3>Получатель</h3>
+    <div class="form-group">
+        <label>Имя:</label>
+        @Html.TextBoxFor(x=>x.Name,new { @class="form-control"})
+
+    </div>
+    foreach(var property in ViewData.ModelMetadata.Properties)
+    {
+        if(property.PropertyName!="Name" &&
+            property.PropertyName != "GiftWrap")
+        {
+            <div class="form-group">
+                <label>@(property.DisplayName ?? property.PropertyName)</label>
+                @Html.TextBox(property.PropertyName,null,new { @class = "form-control" })
+            </div>
+        }
+    }
+    @*<h3>Адрес получателя</h3>
+    <div class="form-group">
+        <label>Строка 1:</label>
+        @Html.TextBoxFor(x=>x.Line1,new { @class="form-control"})
+    </div>
+    <div class="form-group">
+        <label>Строка 2:</label>
+        @Html.TextBoxFor(x => x.Line2, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Строка 3:</label>
+        @Html.TextBoxFor(x => x.Line3, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Город:</label>
+        @Html.TextBoxFor(x => x.city, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Областной район:</label>
+        @Html.TextBoxFor(x => x.State, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Пост-код:</label>
+        @Html.TextBoxFor(x => x.Zip, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Страна:</label>
+        @Html.TextBoxFor(x => x.Country, new { @class = "form-control" })
+    </div>*@
+
+    <h3>Настройки</h3>
+    <div class="checkbox">
+        <label>
+            @Html.EditorFor(x=>x.GiftWrap)
+            Подарочная упаковка к покупкам
+        </label>
+    </div>
+
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Окончание оформления покупки"
+    </div>
+
+}

@@ -1,0 +1,44 @@
+﻿@model SportsStore.WebUI.Models.CartIndexModel
+
+@{ 
+    ViewBag.Title = "Карта покупки.";
+}
+
+<h2>Ваша карта покупки</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Количество</th>
+            <th>Элемент</th>
+            <th class="text-right">Стоимость</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var line in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Product.Name</td>
+                <td class="text-right">@line.Product.price.ToString("c")</td>
+                <td class="text-right">@((line.Quantity*line.Product.price).ToString("c"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "cart"))
+                    {
+                        @Html.Hidden("Productid",line.Product.ProductID)
+                        @Html.HiddenFor(x=>x.ReturnUrl)
+                        <input class="btn btn-sm btn-warning" type="submit" value="Удалить" />
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
+    <tfoot></tfoot>
+
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Вернуться к катологу</a> 
+   @Html.ActionLink("Продолжить","Checkout",null,new { @class="btn btn-primary"})
+
+</div>
